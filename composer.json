@@ -1,0 +1,34 @@
+{
+  "name": "erede-acquiring",
+  "description": "E-Rede Acquiring PHP Library",
+  "keywords": [
+    "e-rede",
+    "acquirer",
+    "payment processing",
+    "api"
+  ],
+  "homepage": "https://userede.com.br/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Henrique Lima",
+      "homepage": "https://github.com/hgflima/erede-acquiring"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.3",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "respect/validation": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "satooshi/php-coveralls": "~0.6.1",
+    "squizlabs/php_codesniffer": "~2.0"
+  },
+  "autoload": {
+    "psr-4": { "ERede\\Acquiring\\" : "lib/" }
+  }
+
+}
