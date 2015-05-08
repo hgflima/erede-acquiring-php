@@ -2,12 +2,9 @@ box: wercker/php
 build:
   steps:
     - script:
-        name: Versao do PHP
-        code: php -v
-    - script:
         name: install dependencies
         code: |-
             composer install
     - script:
         name: Unit Tests
-        code: phpunit --configuration phpunit.xml
+        code: vendor/bin/phpunit
