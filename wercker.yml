@@ -2,6 +2,9 @@ box: wercker/php
 build:
   steps:
     - script:
+        name: Versao do PHP
+        code: php -v
+    - script:
         name: install dependencies
         code: |-
             composer install --no-interaction
