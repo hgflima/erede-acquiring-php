@@ -2,6 +2,9 @@ box: wercker/php
 build:
   steps:
     - script:
+      name: PHP Version
+      code: php -v
+    - script:
         name: install dependencies
         code: |-
             composer install
