@@ -2,7 +2,9 @@ box: wercker/php
 build:
   steps:
     - script:
-        name: echo PHP information
+        name: install dependencies
         code: |-
-            php -v
-            php -i
+            composer install --no-interaction
+    - script:
+        name: Unit Tests
+        code: phpunit --configuration phpunit.xml
