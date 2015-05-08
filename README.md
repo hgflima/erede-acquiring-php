@@ -2,6 +2,8 @@
 
 A PHP client to use the E-Rede Acquiring service.
 
+[![Code Climate](https://codeclimate.com/repos/554cfcaa69568023f60072f4/badges/35a3e4f5871401705f63/gpa.svg)](https://codeclimate.com/repos/554cfcaa69568023f60072f4/feed)
+
 ## Requirements
 
 PHP 5.3.3 and later.
