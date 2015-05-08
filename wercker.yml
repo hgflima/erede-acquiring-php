@@ -2,9 +2,6 @@ box: wercker/php
 build:
   steps:
     - script:
-        name: Update composer
-        code: composer self-update
-    - script:
         name: Install dependencies
         code: |-
             composer install
