@@ -7,7 +7,7 @@ build:
     - script:
         name: install dependencies
         code: |-
-            composer install --no-interaction
+            composer install
     - script:
         name: Unit Tests
         code: phpunit --configuration phpunit.xml
