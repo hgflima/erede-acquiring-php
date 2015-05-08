@@ -3,7 +3,7 @@
 A PHP client to use the E-Rede Acquiring service.
 
 [![Code Climate](https://codeclimate.com/repos/554cfcaa69568023f60072f4/badges/35a3e4f5871401705f63/gpa.svg)](https://codeclimate.com/repos/554cfcaa69568023f60072f4/feed)
-[![Code Climate](https://codeclimate.com/repos/554cfcaa69568023f60072f4/badges/35a3e4f5871401705f63/gpa.svg)](https://codeclimate.com/repos/554cfcaa69568023f60072f4/feed)
+[![Test Coverage](https://codeclimate.com/repos/554cfcaa69568023f60072f4/badges/35a3e4f5871401705f63/coverage.svg)](https://codeclimate.com/repos/554cfcaa69568023f60072f4/coverage)
 [![wercker status](https://app.wercker.com/status/6e89356e294d2cfd56db18ff20d519e3/s "wercker status")](https://app.wercker.com/project/bykey/6e89356e294d2cfd56db18ff20d519e3)
 
 ## Requirements
