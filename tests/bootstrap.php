@@ -9,4 +9,3 @@ if (!file_exists($file)) {
 }
 
 $autoload = require_once $file;
-?>

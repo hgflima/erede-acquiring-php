@@ -29,7 +29,6 @@ class GetAuthorizedRequest {
   public $Parcelas = null;
   public $TaxaEmbarque = null;
   public $Xid = null;
-  
+
 }
 
-?>

@@ -7,5 +7,3 @@ abstract class TransactionType {
   const CREDIT = 0;
 
 }
-
-?>

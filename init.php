@@ -13,7 +13,7 @@ require(dirname(__FILE__) .'/lib/validator/TransactionCreditAuthorizeValidator.p
 
 # ERede/Acquiring/Integration
 require(dirname(__FILE__) .'/lib/integration/KomerciWcf.php');
-require(dirname(__FILE__) .'/lib/integration/GetAuthorizedCreditRequest.php');
+require(dirname(__FILE__) .'/lib/integration/GetAuthorizedRequest.php');
 require(dirname(__FILE__) .'/lib/integration/GetAuthorizedCredit.php');
 require(dirname(__FILE__) .'/lib/integration/Authorization.php');
 require(dirname(__FILE__) .'/lib/integration/ExcecaoAmigavel.php');
@@ -30,7 +30,6 @@ require(dirname(__FILE__) .'/lib/integration/RegistroClass.php');
 require(dirname(__FILE__) .'/lib/integration/AvsQueryClass.php');
 require(dirname(__FILE__) .'/lib/integration/ThreeDClass.php');
 require(dirname(__FILE__) .'/lib/integration/GetAuthorizedCreditResponse.php');
-require(dirname(__FILE__) .'/lib/integration/GetAuthorizedDebitRequest.php');
 require(dirname(__FILE__) .'/lib/integration/GetAuthorizedDebitResponse.php');
 require(dirname(__FILE__) .'/lib/integration/VoidTransactionTIDResponse.php');
 require(dirname(__FILE__) .'/lib/integration/ConfirmTxnTIDResponse.php');

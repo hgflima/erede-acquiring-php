@@ -166,7 +166,5 @@ class TransactionCreditAuthorizeValidatorTest extends \ERede\Acquiring\TestCase 
     $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
 
   }
-  
-}
 
-?>
+}

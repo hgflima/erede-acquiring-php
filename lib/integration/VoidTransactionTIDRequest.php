@@ -10,9 +10,5 @@ class VoidTransactionTIDRequest {
   public $NumSqn = null;
   public $TID = null;
   public $Data = null;
-  
+
 }
-
-
-
-?>
