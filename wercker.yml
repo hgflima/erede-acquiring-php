@@ -2,15 +2,15 @@ box: wercker/php
 build:
   steps:
     - script:
-        name: PHP Version
-        code: php -v
+        name: Update composer
+        code: composer self-update
     - script:
-        name: install dependencies
+        name: Install dependencies
         code: |-
             composer install
     - script:
-        name: Unit Tests
+        name: Run unit Tests
         code: vendor/bin/phpunit
     - script:
-        name: Send coverage status to codeclimate
-        code: CODECLIMATE_REPO_TOKEN=3d980a9f78b5a2f8d9a63d84c84327bcac0dd994a4a08d87acc50b430be7a367 vendor/bin/test-reporter
+        name: Send coverage status to Code Climate
+        code: CODECLIMATE_REPO_TOKEN=3d980a9f78b5a2f8d9a63d84c84327bcac0dd994a4a08d87acc50b430be7a367 vendor/bin/test-reporter --coverage-report=clover.xml
