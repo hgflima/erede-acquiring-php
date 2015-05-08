@@ -2,7 +2,7 @@
 
 namespace ERede\Acquiring\Validator;
 
-use Respect\Validation\Validator as v;
+use \Respect\Validation\Validator as v;
 use \ERede\Acquiring\TransactionStatus as s;
 
 class TransactionCreditAuthorizeValidator {
