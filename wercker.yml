@@ -2,6 +2,9 @@ box: wercker/php
 build:
   steps:
     - script:
+        name: Set timezone in PHP
+        code: echo 'date.timezone = "America/Sao_paulo"' >> $HOME/.phpenv/versions/$(phpenv version-name)/etc/php.in
+    - script:
         name: Install dependencies
         code: |-
             composer install
