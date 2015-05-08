@@ -2,7 +2,7 @@
 
 namespace ERede\Acquiring\Integration;
 
-class GetAuthorizedCreditRequest {
+class GetAuthorizedRequest {
 
   public $Total = null;
   public $Transacao = null;
