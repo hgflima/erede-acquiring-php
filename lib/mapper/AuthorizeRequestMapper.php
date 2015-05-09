@@ -6,19 +6,35 @@ use \ERede\Acquiring\Integration\GetAuthorizedRequest as AuthorizeRequest;
 
 class AuthorizeRequestMapper {
 
-    public function map($data) {
+  private $filiation, $password, $fieldList;
 
-      $authorizeRequest = new AuthorizeRequest();
+  public function __construct($filiation, $password) {
 
-      $authorizeRequest->Nrcartao   = $data['credit_card'];
-      $authorizeRequest->Mes        = $data['exp_month'];
-      $authorizeRequest->Ano        = $data['exp_year'];
-      $authorizeRequest->Cvc2       = $data['cvv'];
-      $authorizeRequest->Total      = ((float)$data['amount']) / 100;
-      $authorizeRequest->NumPedido  = $data['reference'];
+    $this->filiation  = $filiation;
+    $this->password   = $password;
 
-      return $authorizeRequest;
+    $this->fieldList = array("credit_card"  => "Nrcartao",
+                        "exp_month"         => "Mes",
+                        "exp_year"          => "Ano",
+                        "cvv"               => "Cvc2",
+                        "reference"         => "NumPedido",
+                        "soft_descriptor"   => "IdentificacaoFatura");
+  }
 
-    }
+  public function map($data) {
 
+    $authorizeRequest = new AuthorizeRequest();
+
+    foreach($this->fieldList as $key => $value)
+      if(isset($data[$key]))
+        $authorizeRequest->$value = $data[$key];
+
+    $authorizeRequest->Total = ((float)$data['amount']) / 100;
+
+    return $authorizeRequest;
+
+  }
+
+  private function mapField($key, $value, $data) {
+  }
 }

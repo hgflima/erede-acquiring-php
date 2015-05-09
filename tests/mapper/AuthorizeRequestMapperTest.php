@@ -8,7 +8,7 @@ class AuthorizeRequestMapperTest extends \ERede\Acquiring\TestCase {
 
     $expected         = "4242424242424242";
 
-    $mapper           = new AuthorizeRequestMapper();
+    $mapper           = new AuthorizeRequestMapper("123", "456");
     $data             = $this->getValidAuthorizeRequestData();
 
     $authorizeRequest = $mapper->map($data);
@@ -20,7 +20,7 @@ class AuthorizeRequestMapperTest extends \ERede\Acquiring\TestCase {
 
     $expected         = "11";
 
-    $mapper           = new AuthorizeRequestMapper();
+    $mapper           = new AuthorizeRequestMapper("123", "456");
     $data             = $this->getValidAuthorizeRequestData();
 
     $authorizeRequest = $mapper->map($data);
@@ -32,7 +32,7 @@ class AuthorizeRequestMapperTest extends \ERede\Acquiring\TestCase {
 
     $expected         = "2015";
 
-    $mapper           = new AuthorizeRequestMapper();
+    $mapper           = new AuthorizeRequestMapper("123", "456");
     $data             = $this->getValidAuthorizeRequestData();
 
     $authorizeRequest = $mapper->map($data);
@@ -44,7 +44,7 @@ class AuthorizeRequestMapperTest extends \ERede\Acquiring\TestCase {
 
     $expected         = "021";
 
-    $mapper           = new AuthorizeRequestMapper();
+    $mapper           = new AuthorizeRequestMapper("123", "456");
     $data             = $this->getValidAuthorizeRequestData();
 
     $authorizeRequest = $mapper->map($data);
@@ -52,11 +52,23 @@ class AuthorizeRequestMapperTest extends \ERede\Acquiring\TestCase {
 
   }
 
+  public function testMapNullCVV() {
+
+    $mapper           = new AuthorizeRequestMapper("123", "456");
+    $data             = $this->getValidAuthorizeRequestData();
+
+    unset($data["cvv"]);
+
+    $authorizeRequest = $mapper->map($data);
+    $this->assertNull($authorizeRequest->Cvc2);
+
+  }
+
   public function testMapAmount() {
 
     $expected         = 10.21;
 
-    $mapper           = new AuthorizeRequestMapper();
+    $mapper           = new AuthorizeRequestMapper("123", "456");
     $data             = $this->getValidAuthorizeRequestData();
 
     $authorizeRequest = $mapper->map($data);
@@ -68,11 +80,47 @@ class AuthorizeRequestMapperTest extends \ERede\Acquiring\TestCase {
 
     $expected         = "1234";
 
-    $mapper           = new AuthorizeRequestMapper();
+    $mapper           = new AuthorizeRequestMapper("123", "456");
     $data             = $this->getValidAuthorizeRequestData();
 
     $authorizeRequest = $mapper->map($data);
     $this->assertEquals($expected, $authorizeRequest->NumPedido);
+
+  }
+
+  public function testMapNullReference() {
+
+    $mapper           = new AuthorizeRequestMapper("123", "456");
+    $data             = $this->getValidAuthorizeRequestData();
+
+    unset($data["reference"]);
+
+    $authorizeRequest = $mapper->map($data);
+    $this->assertNull($authorizeRequest->NumPedido);
+
+  }
+
+  public function testMapSoftDescriptor() {
+
+    $expected         = "mystore";
+
+    $mapper           = new AuthorizeRequestMapper("123", "456");
+    $data             = $this->getValidAuthorizeRequestData();
+
+    $authorizeRequest = $mapper->map($data);
+    $this->assertEquals($expected, $authorizeRequest->IdentificacaoFatura);
+
+  }
+
+  public function testMapNullSoftDescriptor() {
+
+    $mapper           = new AuthorizeRequestMapper("123", "456");
+    $data             = $this->getValidAuthorizeRequestData();
+
+    unset($data["soft_descriptor"]);
+
+    $authorizeRequest = $mapper->map($data);
+    $this->assertNull($authorizeRequest->IdentificacaoFatura);
 
   }
 
