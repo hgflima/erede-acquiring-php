@@ -29,12 +29,12 @@ class AuthorizeRequestMapper {
       if(isset($data[$key]))
         $authorizeRequest->$value = $data[$key];
 
-    $authorizeRequest->Total = ((float)$data['amount']) / 100;
+    $authorizeRequest->Total    = ((float)$data['amount']) / 100;
+    $authorizeRequest->Filiacao = $this->filiation;
+    $authorizeRequest->Senha    = $this->password;
 
     return $authorizeRequest;
 
   }
 
-  private function mapField($key, $value, $data) {
-  }
 }

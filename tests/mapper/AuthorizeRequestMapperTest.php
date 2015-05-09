@@ -124,4 +124,28 @@ class AuthorizeRequestMapperTest extends \ERede\Acquiring\TestCase {
 
   }
 
+  public function testMapFiliation() {
+
+    $expected         = "123";
+
+    $mapper           = new AuthorizeRequestMapper("123", "456");
+    $data             = $this->getValidAuthorizeRequestData();
+
+    $authorizeRequest = $mapper->map($data);
+    $this->assertEquals($expected, $authorizeRequest->Filiacao);
+
+  }
+
+  public function testMapPassword() {
+
+    $expected         = "456";
+
+    $mapper           = new AuthorizeRequestMapper("123", "456");
+    $data             = $this->getValidAuthorizeRequestData();
+
+    $authorizeRequest = $mapper->map($data);
+    $this->assertEquals($expected, $authorizeRequest->Senha);
+
+  }
+
 }
