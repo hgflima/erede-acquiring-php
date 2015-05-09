@@ -2,33 +2,10 @@
 
 namespace ERede\Acquiring\Integration;
 
-class Confirmation
-{
+class Confirmation {
 
-    /**
-     * @var string $CodRet
-     * @access public
-     */
-    public $CodRet = null;
-
-    /**
-     * @var string $MsgRet
-     * @access public
-     */
-    public $MsgRet = null;
-
-    /**
-     * @var string $Tid
-     * @access public
-     */
-    public $Tid = null;
-
-    /**
-     * @access public
-     */
-    public function __construct()
-    {
-    
-    }
+  public $CodRet = null;
+  public $MsgRet = null;
+  public $Tid = null;
 
 }
