@@ -31,4 +31,3 @@ class GetAuthorizedRequest {
   public $Xid = null;
 
 }
-

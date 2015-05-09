@@ -9,7 +9,5 @@ class ConfirmTxnTIDRequest {
   public $TID = null;
   public $Total = null;
   public $Data = null;
-  
-}
-?>
 
+}
