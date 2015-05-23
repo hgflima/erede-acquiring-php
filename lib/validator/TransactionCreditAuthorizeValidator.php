@@ -19,6 +19,7 @@ class TransactionCreditAuthorizeValidator {
     $this->validateCreditCard($parameters);
     $this->validateCVV($parameters);
     $this->validateExpDate($parameters);
+    $this->validateAmount($parameters);
     return $this->validationResponse;
   }
 
@@ -118,6 +119,23 @@ class TransactionCreditAuthorizeValidator {
           return false;
       }
 
+    }
+
+    return true;
+
+  }
+
+  private function validateAmount($parameters) {
+
+    $fieldName = "amount";
+
+    if(!$this->validateRequired($parameters, $fieldName))
+      return false;
+
+    if(!v::int()->min(50, true)->validate($parameters[$fieldName])) {
+      $this->validationResponse->status = s::VALIDATION_ERROR;
+      $this->validationResponse->errors[$fieldName] = "is invalid";
+      return false;
     }
 
     return true;

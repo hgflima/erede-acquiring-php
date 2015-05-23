@@ -135,7 +135,7 @@ class TransactionCreditAuthorizeValidatorTest extends \ERede\Acquiring\TestCase 
     $validator            = new TransactionCreditAuthorizeValidator();
 
     $data                 = $this->getValidAuthorizeRequestData();
-    $data["cvv"]     = "1015";
+    $data["cvv"]          = "1015";
     $validationResponse   = $validator->validate($data);
 
     $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
@@ -148,7 +148,7 @@ class TransactionCreditAuthorizeValidatorTest extends \ERede\Acquiring\TestCase 
     $validator            = new TransactionCreditAuthorizeValidator();
 
     $data                 = $this->getValidAuthorizeRequestData();
-    $data["cvv"]     = "15";
+    $data["cvv"]          = "15";
     $validationResponse   = $validator->validate($data);
 
     $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
@@ -160,7 +160,46 @@ class TransactionCreditAuthorizeValidatorTest extends \ERede\Acquiring\TestCase 
     $validator            = new TransactionCreditAuthorizeValidator();
 
     $data                 = $this->getValidAuthorizeRequestData();
-    $data["cvv"]     = "a15";
+    $data["cvv"]          = "a15";
+    $validationResponse   = $validator->validate($data);
+
+    $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
+
+  }
+
+  public function testValidateAmountRequired() {
+
+    $validator            = new TransactionCreditAuthorizeValidator();
+
+    $data                 = $this->getValidAuthorizeRequestData();
+    unset($data["amount"]);
+
+    $validationResponse   = $validator->validate($data);
+
+    $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
+
+  }
+
+  public function testValidateAmountLowerThanExpected() {
+
+    $validator            = new TransactionCreditAuthorizeValidator();
+
+    $data                 = $this->getValidAuthorizeRequestData();
+    $data["amount"]       = 49;
+
+    $validationResponse   = $validator->validate($data);
+
+    $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
+
+  }
+
+  public function testValidateAmountInvalid() {
+
+    $validator            = new TransactionCreditAuthorizeValidator();
+
+    $data                 = $this->getValidAuthorizeRequestData();
+    $data["amount"]       = 49.3;
+
     $validationResponse   = $validator->validate($data);
 
     $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);

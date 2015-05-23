@@ -33,6 +33,10 @@ class AuthorizeRequestMapper {
     $authorizeRequest->Filiacao = $this->filiation;
     $authorizeRequest->Senha    = $this->password;
 
+    if(isset($data['installments']))
+      if($data['installments'] > 1)
+        $authorizeRequest->Parcelas = $data['installments'];
+
     return $authorizeRequest;
 
   }
