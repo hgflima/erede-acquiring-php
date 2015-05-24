@@ -160,4 +160,16 @@ class AuthorizeRequestMapperTest extends \ERede\Acquiring\TestCase {
 
   }
 
+  public function testInstallmentsNull() {
+
+    $mapper           = new AuthorizeRequestMapper("123", "456");
+    $data             = $this->getValidAuthorizeRequestData();
+
+    $data["installments"] = 1;
+
+    $authorizeRequest = $mapper->map($data);
+    $this->assertNull($authorizeRequest->Parcelas);
+
+  }
+
 }
