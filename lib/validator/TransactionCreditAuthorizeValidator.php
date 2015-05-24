@@ -23,6 +23,7 @@ class TransactionCreditAuthorizeValidator {
       $this->validateCVV($parameters);
       $this->validateExpDate($parameters);
       $this->validateAmount($parameters);
+      $this->validateSoftDescriptor($parameters);
 
     }
 
@@ -34,7 +35,7 @@ class TransactionCreditAuthorizeValidator {
 
     $fieldName = "credit_card";
 
-    if(!v::creditCard()->validate($parameters["credit_card"])) {
+    if(!v::creditCard()->validate($parameters[$fieldName])) {
       $this->validationResponse->status = s::VALIDATION_ERROR;
       $this->validationResponse->errors[$fieldName] = "is invalid";
       return false;
@@ -131,6 +132,25 @@ class TransactionCreditAuthorizeValidator {
       $this->validationResponse->status = s::VALIDATION_ERROR;
       $this->validationResponse->errors[$fieldName] = "is invalid. Need to be higher than 50 cents";
       return false;
+    }
+
+    return true;
+
+  }
+
+  private function validateSoftDescriptor($parameters) {
+
+    $fieldName = "soft_descriptor";
+
+    if(array_key_exists($fieldName, $parameters)) {
+
+      if(!v::length(1,13,true)->validate($parameters[$fieldName]) ||
+          !v::alnum()->noWhitespace()->validate($parameters[$fieldName])) {
+          $this->validationResponse->status = s::VALIDATION_ERROR;
+          $this->validationResponse->errors[$fieldName] = "is invalid";
+          return false;
+      }
+
     }
 
     return true;

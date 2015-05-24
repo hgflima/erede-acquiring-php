@@ -223,4 +223,40 @@ class TransactionCreditAuthorizeValidatorTest extends \ERede\Acquiring\TestCase 
 
   }
 
+  public function testValidateSoftDescriptorLongValue() {
+
+    $validator                = new TransactionCreditAuthorizeValidator();
+
+    $data                     = $this->getValidAuthorizeRequestData();
+    $data["soft_descriptor"]  = "umsoftdescriptormuitogrande";
+
+    $validationResponse       = $validator->validate($data);
+
+    $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
+
+  }
+
+  public function testValidateSoftDescriptorWrongChar() {
+
+    $validator                = new TransactionCreditAuthorizeValidator();
+
+    $data                     = $this->getValidAuthorizeRequestData();
+    $data["soft_descriptor"]  = "wrong-char";
+
+    $validationResponse       = $validator->validate($data);
+
+    $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
+
+  }
+
+  public function testValidateSoftDescriptor() {
+
+    $validator                = new TransactionCreditAuthorizeValidator();
+    $data                     = $this->getValidAuthorizeRequestData();
+    $validationResponse       = $validator->validate($data);
+
+    $this->assertEquals(s::SUCCESS, $validationResponse->status);
+
+  }
+
 }
