@@ -11,27 +11,31 @@ class TransactionCreditAuthorizeValidator {
 
   public function __construct() {
     $this->validationResponse         = new \sTdClass;
-    $this->validationResponse->status = 0;
+    $this->validationResponse->status = s::SUCCESS;
     $this->validationResponse->errors = array();
   }
 
   public function validate(array $parameters) {
-    $this->validateCreditCard($parameters);
-    $this->validateCVV($parameters);
-    $this->validateExpDate($parameters);
-    $this->validateAmount($parameters);
+
+    if($this->validateRequired($parameters, array("credit_card", "exp_year", "exp_month", "amount"))) {
+
+      $this->validateCreditCard($parameters);
+      $this->validateCVV($parameters);
+      $this->validateExpDate($parameters);
+      $this->validateAmount($parameters);
+
+    }
+
     return $this->validationResponse;
+
   }
 
   private function validateCreditCard($parameters) {
 
     $fieldName = "credit_card";
 
-    if(!$this->validateRequired($parameters, $fieldName))
-      return false;
-
     if(!v::creditCard()->validate($parameters["credit_card"])) {
-      $this->validationResponse->status = 1;
+      $this->validationResponse->status = s::VALIDATION_ERROR;
       $this->validationResponse->errors[$fieldName] = "is invalid";
       return false;
     }
@@ -43,9 +47,6 @@ class TransactionCreditAuthorizeValidator {
   private function validateExpYear($parameters) {
 
     $fieldName = "exp_year";
-
-    if(!$this->validateRequired($parameters, $fieldName))
-      return false;
 
     if(!v::int()->validate($parameters[$fieldName])) {
       $this->validationResponse->status = s::VALIDATION_ERROR;
@@ -69,9 +70,6 @@ class TransactionCreditAuthorizeValidator {
   private function validateExpMonth($parameters) {
 
     $fieldName = "exp_month";
-
-    if(!$this->validateRequired($parameters, $fieldName))
-      return false;
 
     if(!v::int()->between(1, 12)->validate($parameters[$fieldName])) {
       $this->validationResponse->status = s::VALIDATION_ERROR;
@@ -129,9 +127,6 @@ class TransactionCreditAuthorizeValidator {
 
     $fieldName = "amount";
 
-    if(!$this->validateRequired($parameters, $fieldName))
-      return false;
-
     if(!v::int()->min(50, true)->validate($parameters[$fieldName])) {
       $this->validationResponse->status = s::VALIDATION_ERROR;
       $this->validationResponse->errors[$fieldName] = "is invalid. Need to be higher than 50 cents";
@@ -142,12 +137,16 @@ class TransactionCreditAuthorizeValidator {
 
   }
 
-  private function validateRequired($parameters, $fieldName) {
+  private function validateRequired($parameters, $fieldNames) {
 
-    if(!v::key($fieldName)->validate($parameters)) {
-      $this->validationResponse->status = s::VALIDATION_ERROR;
-      $this->validationResponse->errors[$fieldName] = "is required";
-      return false;
+    foreach($fieldNames as $fieldName) {
+
+      if(!v::key($fieldName)->validate($parameters)) {
+        $this->validationResponse->status = s::VALIDATION_ERROR;
+        $this->validationResponse->errors[$fieldName] = "is required";
+        return false;
+      }
+
     }
 
     return true;

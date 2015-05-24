@@ -29,7 +29,11 @@ class TransactionCreditAuthorizeValidatorTest extends \ERede\Acquiring\TestCase 
   public function testValidateCreditCardRequired() {
 
     $validator          = new TransactionCreditAuthorizeValidator();
-    $validationResponse = $validator->validate(array("xxx" => "yyy"));
+    $data               = $this->getValidAuthorizeRequestData();
+
+    unset($data["credit_card"]);
+
+    $validationResponse = $validator->validate($data);
     $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
 
   }
