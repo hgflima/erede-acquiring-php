@@ -206,4 +206,17 @@ class TransactionCreditAuthorizeValidatorTest extends \ERede\Acquiring\TestCase 
 
   }
 
+  public function testValidateAmount() {
+
+    $validator            = new TransactionCreditAuthorizeValidator();
+
+    $data                 = $this->getValidAuthorizeRequestData();
+    $data["amount"]       = 50;
+
+    $validationResponse   = $validator->validate($data);
+
+    $this->assertEquals(s::SUCCESS, $validationResponse->status);
+
+  }
+
 }

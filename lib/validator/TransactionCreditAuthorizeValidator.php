@@ -134,7 +134,7 @@ class TransactionCreditAuthorizeValidator {
 
     if(!v::int()->min(50, true)->validate($parameters[$fieldName])) {
       $this->validationResponse->status = s::VALIDATION_ERROR;
-      $this->validationResponse->errors[$fieldName] = "is invalid";
+      $this->validationResponse->errors[$fieldName] = "is invalid. Need to be higher than 50 cents";
       return false;
     }
 
