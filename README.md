@@ -38,9 +38,12 @@ If you do not wish to use Composer, you can download the [latest release](https:
 
 Simple usage looks like:
 
-    $cardData = array('number' => '4242424242424242', 'exp_month' => 5, 'exp_year' => 2015);
-    $acquirer = \ERede\Acquiring\Acquirer("123", "456");
-    $response = $acquirer.fetch(\ERede\Acquiring\TransactionType::CREDIT).authorize($cardData);
+    use \ERede\Acquiring\Acquirer;
+    use \ERede\Acquiring\TransactionType;
+
+    $data = array('number' => '4242424242424242', 'exp_month' => 5, 'exp_year' => 2015, 'amount' => "1050");
+    $acquirer = new Acquirer("FILIATION", "PASSWORD");
+    $response = $acquirer.fetch(TransactionType::CREDIT).authorize($data);
     var_dump($response);
 
 ## Documentation
