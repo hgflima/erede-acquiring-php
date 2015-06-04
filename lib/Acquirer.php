@@ -2,15 +2,26 @@
 
 namespace ERede\Acquiring;
 
+use ERede\Acquiring\Mapper\AuthorizeRequestMapper;
+use ERede\Acquiring\Validator\TransactionCreditAuthorizeValidator;
+
 class Acquirer {
 
   private $filiation, $password;
   private $transactionTypeList;
 
   function __construct($filiation, $password) {
+
     $this->filiation  = $filiation;
     $this->password   = $password;
-    $this->transactionTypeList = array(TransactionType::CREDIT => new TransactionCredit($filiation, $password));
+
+    $parameters = array("filiation"               => $filiation,
+                        "password"                => $password,
+                        "authorizeValidator"      => new TransactionCreditAuthorizeValidator(),
+                        "authorizeRequestMapper"  => new AuthorizeRequestMapper($filiation, $password));
+
+    $this->transactionTypeList = array(TransactionType::CREDIT => new TransactionCredit($parameters));
+
   }
 
   function fetch($transactionType) {

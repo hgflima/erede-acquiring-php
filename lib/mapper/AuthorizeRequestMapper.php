@@ -37,7 +37,36 @@ class AuthorizeRequestMapper {
       if($data['installments'] > 1)
         $authorizeRequest->Parcelas = $data['installments'];
 
+    $authorizeRequest->Transacao = $this->getTransactionType($data);
+
     return $authorizeRequest;
+
+  }
+
+  /*
+   *  Authorize + Automatic capture
+   *  At sight  => 04
+   *  Installments with interest rate => 08
+   *  Installments without interest rate => XX
+   *
+   * Just Authorize => 73
+   */
+  private function getTransactionType($data) {
+
+    $authorizeType = "08"; # padrao
+
+    if($data['capture'] == true) {
+
+      if($data['installments'] > 1)
+        $authorizeType = "08";
+      else
+        $authorizeType = "04";
+
+    } else {
+        $authorizeType = "73";
+    }
+
+    return $authorizeType;
 
   }
 

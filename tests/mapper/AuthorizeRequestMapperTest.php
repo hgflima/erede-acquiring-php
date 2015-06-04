@@ -160,7 +160,7 @@ class AuthorizeRequestMapperTest extends \ERede\Acquiring\TestCase {
 
   }
 
-  public function testInstallmentsNull() {
+  public function testParcelasNull() {
 
     $mapper           = new AuthorizeRequestMapper("123", "456");
     $data             = $this->getValidAuthorizeRequestData();
@@ -169,6 +169,78 @@ class AuthorizeRequestMapperTest extends \ERede\Acquiring\TestCase {
 
     $authorizeRequest = $mapper->map($data);
     $this->assertNull($authorizeRequest->Parcelas);
+
+  }
+
+  public function testInstallmentsNull() {
+
+    $mapper           = new AuthorizeRequestMapper("123", "456");
+    $data             = $this->getValidAuthorizeRequestData();
+
+    unset($data["installments"]);
+
+    $authorizeRequest = $mapper->map($data);
+    $this->assertNull($authorizeRequest->Parcelas);
+
+  }
+
+  public function testMapTransacaoAutomaticCaptureAvista() {
+
+    $expected             = "04";
+
+    $mapper               = new AuthorizeRequestMapper("123", "456");
+    $data                 = $this->getValidAuthorizeRequestData();
+
+    $data["installments"] = 1;
+    $data["capture"]      = true;
+
+    $authorizeRequest     = $mapper->map($data);
+    $this->assertEquals($expected, $authorizeRequest->Transacao);
+
+  }
+
+  public function testMapTransacaoAutomaticCaptureParcelado() {
+
+    $expected             = "08";
+
+    $mapper               = new AuthorizeRequestMapper("123", "456");
+    $data                 = $this->getValidAuthorizeRequestData();
+
+    $data["installments"] = 2;
+    $data["capture"]      = true;
+
+    $authorizeRequest     = $mapper->map($data);
+    $this->assertEquals($expected, $authorizeRequest->Transacao);
+
+  }
+
+  public function testMapTransacaoJustAuthorizeAVista() {
+
+    $expected             = "73";
+
+    $mapper               = new AuthorizeRequestMapper("123", "456");
+    $data                 = $this->getValidAuthorizeRequestData();
+
+    $data["installments"] = 1;
+    $data["capture"]      = false;
+
+    $authorizeRequest     = $mapper->map($data);
+    $this->assertEquals($expected, $authorizeRequest->Transacao);
+
+  }
+
+  public function testMapTransacaoJustAuthorizeParcelado() {
+
+    $expected             = "73";
+
+    $mapper               = new AuthorizeRequestMapper("123", "456");
+    $data                 = $this->getValidAuthorizeRequestData();
+
+    $data["installments"] = 2;
+    $data["capture"]      = false;
+
+    $authorizeRequest     = $mapper->map($data);
+    $this->assertEquals($expected, $authorizeRequest->Transacao);
 
   }
 

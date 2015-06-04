@@ -15,8 +15,8 @@ class GetAuthorizedRequest {
   public $Ano = null;
   public $Portador = null;
   public $IdentificacaoFatura = null;
-  public $Recorrente = null;
-  public $Origem = null;
+  public $Recorrente = "0";
+  public $Origem = "01";
   public $Cavv = null;
   public $Cep = null;
   public $Complemento = null;

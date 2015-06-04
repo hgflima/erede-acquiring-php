@@ -39,7 +39,9 @@ class KomerciWcf extends \SoapClient {
   }
 
   public function GetAuthorizedCredit(GetAuthorizedCredit $parameters) {
-    return $this->__soapCall('GetAuthorizedCredit', array($parameters));
+    $x = $this->__soapCall('GetAuthorizedCredit', array($parameters));
+    echo "alo: " + $this->__getLastRequest();
+    return $x;
   }
 
   public function GetAuthorizedDebit(GetAuthorizedDebit $parameters) {
