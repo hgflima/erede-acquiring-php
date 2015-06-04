@@ -48,7 +48,7 @@ Simple usage looks like:
 
 ## Documentation
 
-Please see https://desenvolvedores.userede.com.br for up-to-date documentation.
+Please see https://www.userede.com.br/Desenvolvedores for up-to-date documentation.
 
 ## Tests
 
