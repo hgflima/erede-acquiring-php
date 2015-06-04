@@ -69,17 +69,8 @@ class TransactionCreditAuthorizeValidator {
   }
 
   private function validateExpMonth($parameters) {
-
     $fieldName = "exp_month";
-
-    if(!v::int()->between(1, 12)->validate($parameters[$fieldName])) {
-      $this->validationResponse->status = s::VALIDATION_ERROR;
-      $this->validationResponse->errors[$fieldName] = "is invalid";
-      return false;
-    }
-
-    return true;
-
+    return $this->assertIntBetween($fieldName, 1, 12, $parameters[$fieldName]);
   }
 
   private function validateExpDate($parameters) {
@@ -172,5 +163,22 @@ class TransactionCreditAuthorizeValidator {
     return true;
 
   }
+
+  private function assertIntBetween($fieldName, $start, $end, $parameter) {
+
+    if(!v::int()->between($start, $end)->validate($parameter)) {
+      $this->setValidationResponse(s::VALIDATION_ERROR, $fieldName, "is invalid");
+      return false;
+    }
+
+    return true;
+
+  }
+
+  private function setValidationResponse($status, $fieldName, $message) {
+      $this->validationResponse->status = $status;
+      $this->validationResponse->errors[$fieldName] = $message;
+  }
+
 
 }
