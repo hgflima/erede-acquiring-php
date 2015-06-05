@@ -37,9 +37,12 @@ class TransactionCredit {
     $authorizeRequest = $this->authorizeRequestMapper->map($parameters);
 
     #$komerci = new Komerci(array(), "https://ecommerce.userede.com.br/Redecard.Adquirencia.Wcf/KomerciWcf.svc?wsdl");
-
     #$ret = $komerci->GetAuthorizedCredit(new GetAuthorizedCredit($authorizeRequest));
+
+    $authorizeResponse = $this->integrator->GetAuthorizedCredit(new GetAuthorizedCredit($authorizeRequest));
+
     return $response;
+
   }
 
 }

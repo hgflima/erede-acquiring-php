@@ -6,4 +6,8 @@ class GetAuthorizedCreditResponse {
 
   public $GetAuthorizedCreditResult = null;
 
+  public function __construct($data) {
+    $this->GetAuthorizedCreditResult = $data;
+  }
+
 }

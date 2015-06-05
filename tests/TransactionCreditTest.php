@@ -10,9 +10,9 @@ class TransactionCreditTest extends TestCase {
 
     $authorizeValidatorMock = $this->getAuthorizeValidatorMock(false);
 
-    $parameters = array("filiation" => "123",
-                        "password"  => "456",
-                        "authorizeValidator" => $authorizeValidatorMock);
+    $parameters = array("filiation"           => "123",
+                        "password"            => "456",
+                        "authorizeValidator"  => $authorizeValidatorMock);
 
     $transactionCredit = new TransactionCredit($parameters);
     $response          = $transactionCredit->authorize($this->getValidAuthorizeRequestData());
@@ -27,13 +27,15 @@ class TransactionCreditTest extends TestCase {
 
   public function testAuthorizeRequestMapper() {
 
-    $authorizeValidatorMock = $this->getAuthorizeValidatorMock(true);
+    $authorizeValidatorMock     = $this->getAuthorizeValidatorMock(true);
     $authorizeRequestMapperMock = $this->getAuthorizeRequestMapperMock();
+    $integratorMock             = $this->getIntegratorGetAuthorizedCreditMock();
 
-    $parameters = array("filiation" => "123",
-                        "password"  => "456",
-                        "authorizeValidator" => $authorizeValidatorMock,
-                        "authorizeRequestMapper" => $authorizeRequestMapperMock);
+    $parameters = array("filiation"               => "123",
+                        "password"                => "456",
+                        "authorizeValidator"      => $authorizeValidatorMock,
+                        "authorizeRequestMapper"  => $authorizeRequestMapperMock,
+                        "integrator"              => $integratorMock);
 
     $transactionCredit = new TransactionCredit($parameters);
     $response          = $transactionCredit->authorize($this->getValidAuthorizeRequestData());

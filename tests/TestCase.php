@@ -4,6 +4,7 @@ namespace ERede\Acquiring;
 
 use \ERede\Acquiring\TransactionStatus as s;
 use \ERede\Acquiring\Integration\GetAuthorizedRequest;
+use \ERede\Acquiring\Integration\GetAuthorizedCreditResponse;
 
 class TestCase extends \PHPUnit_Framework_TestCase {
 
@@ -61,6 +62,42 @@ class TestCase extends \PHPUnit_Framework_TestCase {
                                 ->willReturn(new GetAuthorizedRequest());
 
     return $authorizeRequestMapperMock;
+
+  }
+
+  protected function getIntegratorGetAuthorizedCreditMock() {
+
+    $mock = $this->getMockBuilder("stdClass")
+                  ->setMethods(array('GetAuthorizedCredit'))
+                  ->getMock();
+
+    $mock->expects($this->once())
+                        ->method("GetAuthorizedCredit")
+                        ->willReturn(new GetAuthorizedCreditResponse($this->getGetAuthorizedCreditResponseSuccess()));
+
+    return $mock;
+
+  }
+
+  protected function getGetAuthorizedCreditResponseSuccess() {
+
+    $result = new \stdClass;
+    $result->Cet      = null;
+    $result->CodRet   = "00";
+    $result->Data     = "20150602";
+    $result->Hora     = "09:34:21";
+    $result->Juros    = null;
+    $result->MsgAvs   = null;
+    $result->Msgret   = "Sucesso";
+    $result->NumAutor = "022579";
+    $result->NumPedido = "123456";
+    $result->NumSqn     = "25747";
+    $result->RespAvs    = null;
+    $result->Tid        = "134";
+    $result->ValParcelas = null;
+    $result->ValTotalJuros = null;
+
+    return $result;
 
   }
 
