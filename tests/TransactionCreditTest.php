@@ -3,6 +3,7 @@
 namespace ERede\Acquiring;
 
 use \ERede\Acquiring\TransactionStatus as s;
+use \ERede\Acquiring\Mapper\AuthorizeResponseMapper;
 
 class TransactionCreditTest extends TestCase {
 
@@ -35,16 +36,19 @@ class TransactionCreditTest extends TestCase {
                         "password"                => "456",
                         "authorizeValidator"      => $authorizeValidatorMock,
                         "authorizeRequestMapper"  => $authorizeRequestMapperMock,
+                        "authorizeResponseMapper" => new AuthorizeResponseMapper(),
                         "integrator"              => $integratorMock);
 
     $transactionCredit = new TransactionCredit($parameters);
     $response          = $transactionCredit->authorize($this->getValidAuthorizeRequestData());
 
-    $expected_status = s::SUCCESS;
-    $expected_errors = 0;
+    $expected_status      = s::SUCCESS;
+    $expected_errors      = 0;
+    $expected_return_code = "00";
 
     $this->assertEquals($expected_status, $response->status);
     $this->assertEquals($expected_errors, count($response->errors));
+    $this->assertEquals($expected_return_code, $response->data['return_code']);
 
   }
 
