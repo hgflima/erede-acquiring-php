@@ -39,7 +39,6 @@ class TransactionCredit {
     $authorizeResponse = $this->integrator->GetAuthorizedCredit(new GetAuthorizedCredit($authorizeRequest));
     $response->data    = $this->authorizeResponseMapper->map($authorizeResponse);
 
-    var_dump($response);
     return $response;
 
   }

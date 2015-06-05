@@ -13,6 +13,7 @@ require(dirname(__FILE__) .'/lib/validator/TransactionCreditAuthorizeValidator.p
 
 # ERede\Acquiring\Mapper
 require(dirname(__FILE__) .'/lib/mapper/AuthorizeRequestMapper.php');
+require(dirname(__FILE__) .'/lib/mapper/AuthorizeResponseMapper.php');
 
 # ERede/Acquiring/Integration
 require(dirname(__FILE__) .'/lib/integration/KomerciWcf.php');
