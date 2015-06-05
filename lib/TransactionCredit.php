@@ -22,17 +22,24 @@ class TransactionCredit {
 
   public function authorize(array $parameters) {
 
+    $response = new \stdClass;
+    $response->status = s::SUCCESS;
+    $response->errors = array();
+
     $validationResponse = $this->authorizeValidator->validate($parameters);
 
-    if($validationResponse->status == s::VALIDATION_ERROR)
-      return false; # retornar um hash
+    if($validationResponse->status == s::VALIDATION_ERROR) {
+      $response->status = $validationResponse->status;
+      $response->errors = $validationResponse->errors;
+      return $response;
+    }
 
     $authorizeRequest = $this->authorizeRequestMapper->map($parameters);
 
-    $komerci = new Komerci(array(), "https://ecommerce.userede.com.br/Redecard.Adquirencia.Wcf/KomerciWcf.svc?wsdl");
+    #$komerci = new Komerci(array(), "https://ecommerce.userede.com.br/Redecard.Adquirencia.Wcf/KomerciWcf.svc?wsdl");
 
-    $ret = $komerci->GetAuthorizedCredit(new GetAuthorizedCredit($authorizeRequest));
-
+    #$ret = $komerci->GetAuthorizedCredit(new GetAuthorizedCredit($authorizeRequest));
+    return $response;
   }
 
 }
