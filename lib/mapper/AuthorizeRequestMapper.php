@@ -55,7 +55,7 @@ class AuthorizeRequestMapper {
 
     $authorizeType = "08"; # padrao
 
-    if($data['capture'] == true) {
+    if($data['capture'] === true) {
 
       if($data['installments'] > 1)
         $authorizeType = "08";
