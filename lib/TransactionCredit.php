@@ -39,6 +39,9 @@ class TransactionCredit {
     $authorizeResponse = $this->integrator->GetAuthorizedCredit(new GetAuthorizedCredit($authorizeRequest));
     $response->data    = $this->authorizeResponseMapper->map($authorizeResponse);
 
+    if($response->data['return_code'] == null)
+      $response->status = s::TRANSACTION_NOT_PROCESSED;
+
     return $response;
 
   }

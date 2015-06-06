@@ -3,14 +3,22 @@
 namespace ERede\Acquiring;
 
 use ERede\Acquiring\Mapper\AuthorizeRequestMapper;
+use ERede\Acquiring\Mapper\AuthorizeResponseMapper;
 use ERede\Acquiring\Validator\TransactionCreditAuthorizeValidator;
+use ERede\Acquiring\Integration\KomerciWcf as Komerci;
 
 class Acquirer {
 
-  private $filiation, $password;
-  private $transactionTypeList;
+  private $filiation, $password, $transactionTypeList;
 
-  function __construct($filiation, $password) {
+  function __construct($filiation, $password, $environment = 'production') {
+
+    $environments = array("production" => "https://ecommerce.userede.com.br/Redecard.Adquirencia.Wcf/KomerciWcf.svc?wsdl");
+
+    $env = $environments['production'];
+
+    if(array_key_exists($environment, $environments))
+      $env = $environments[$environment];
 
     $this->filiation  = $filiation;
     $this->password   = $password;
@@ -18,7 +26,9 @@ class Acquirer {
     $parameters = array("filiation"               => $filiation,
                         "password"                => $password,
                         "authorizeValidator"      => new TransactionCreditAuthorizeValidator(),
-                        "authorizeRequestMapper"  => new AuthorizeRequestMapper($filiation, $password));
+                        "authorizeRequestMapper"  => new AuthorizeRequestMapper($filiation, $password),
+                        "authorizeResponseMapper" => new AuthorizeResponseMapper(),
+                        "integrator"              => new Komerci(array(), $env));
 
     $this->transactionTypeList = array(TransactionType::CREDIT => new TransactionCredit($parameters));
 

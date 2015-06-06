@@ -65,15 +65,20 @@ class TestCase extends \PHPUnit_Framework_TestCase {
 
   }
 
-  protected function getIntegratorGetAuthorizedCreditMock() {
+  protected function getIntegratorGetAuthorizedCreditMock($success) {
 
     $mock = $this->getMockBuilder("stdClass")
                   ->setMethods(array('GetAuthorizedCredit'))
                   ->getMock();
 
+    $getAuthorizedCreditResponse = $this->getGetAuthorizedCreditResponseNotApproved();
+
+    if($success)
+      $getAuthorizedCreditResponse = $this->getGetAuthorizedCreditResponseSuccess();
+
     $mock->expects($this->once())
                         ->method("GetAuthorizedCredit")
-                        ->willReturn(new GetAuthorizedCreditResponse($this->getGetAuthorizedCreditResponseSuccess()));
+                        ->willReturn(new GetAuthorizedCreditResponse($getAuthorizedCreditResponse));
 
     return $mock;
 
@@ -96,6 +101,28 @@ class TestCase extends \PHPUnit_Framework_TestCase {
     $result->Tid        = "134";
     $result->ValParcelas = null;
     $result->ValTotalJuros = null;
+
+    return $result;
+
+  }
+
+  protected function getGetAuthorizedCreditResponseNotApproved() {
+
+    $result = new \stdClass;
+    $result->Cet            = null;
+    $result->CodRet         = null;
+    $result->Data           = null;
+    $result->Hora           = null;
+    $result->Juros          = null;
+    $result->MsgAvs         = null;
+    $result->Msgret         = "Número de pedido já existente para o estabelecimento.";
+    $result->NumAutor       = null;
+    $result->NumPedido      = null;
+    $result->NumSqn         = null;
+    $result->RespAvs        = null;
+    $result->Tid            = null;
+    $result->ValParcelas    = null;
+    $result->ValTotalJuros  = null;
 
     return $result;
 

@@ -30,7 +30,7 @@ class TransactionCreditTest extends TestCase {
 
     $authorizeValidatorMock     = $this->getAuthorizeValidatorMock(true);
     $authorizeRequestMapperMock = $this->getAuthorizeRequestMapperMock();
-    $integratorMock             = $this->getIntegratorGetAuthorizedCreditMock();
+    $integratorMock             = $this->getIntegratorGetAuthorizedCreditMock(true);
 
     $parameters = array("filiation"               => "123",
                         "password"                => "456",
@@ -49,6 +49,30 @@ class TransactionCreditTest extends TestCase {
     $this->assertEquals($expected_status, $response->status);
     $this->assertEquals($expected_errors, count($response->errors));
     $this->assertEquals($expected_return_code, $response->data['return_code']);
+
+  }
+
+  public function testAuthorizeRequestMapperNotApproved() {
+
+    $authorizeValidatorMock     = $this->getAuthorizeValidatorMock(true);
+    $authorizeRequestMapperMock = $this->getAuthorizeRequestMapperMock();
+    $integratorMock             = $this->getIntegratorGetAuthorizedCreditMock(false);
+
+    $parameters = array("filiation"               => "123",
+                        "password"                => "456",
+                        "authorizeValidator"      => $authorizeValidatorMock,
+                        "authorizeRequestMapper"  => $authorizeRequestMapperMock,
+                        "authorizeResponseMapper" => new AuthorizeResponseMapper(),
+                        "integrator"              => $integratorMock);
+
+    $transactionCredit = new TransactionCredit($parameters);
+    $response          = $transactionCredit->authorize($this->getValidAuthorizeRequestData());
+
+    $expected_status      = s::TRANSACTION_NOT_PROCESSED;
+    $expected_message     = "Número de pedido já existente para o estabelecimento.";
+
+    $this->assertEquals($expected_status, $response->status);
+    $this->assertEquals($expected_message, $response->data['message']);
 
   }
 
