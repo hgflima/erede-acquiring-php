@@ -1,5 +1,6 @@
 {
-  "name": "erede-acquiring",
+  "name": "erede/acquiring",
+  "type": "library",
   "description": "E-Rede Acquiring PHP Library",
   "keywords": [
     "e-rede",

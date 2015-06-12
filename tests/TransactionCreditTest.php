@@ -52,7 +52,7 @@ class TransactionCreditTest extends TestCase {
 
   }
 
-  public function testAuthorizeRequestMapperNotApproved() {
+  public function testAuthorizeRequestMapperServerValidationError() {
 
     $authorizeValidatorMock     = $this->getAuthorizeValidatorMock(true);
     $authorizeRequestMapperMock = $this->getAuthorizeRequestMapperMock();
