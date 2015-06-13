@@ -23,7 +23,7 @@ class CaptureRequestMapperTest extends \ERede\Acquiring\TestCase {
     $mapper           = new CaptureRequestMapper("123", "456");
     $data             = $this->getValidCaptureRequestData();
 
-    $captureRequest = $mapper->map($data);
+    $captureRequest   = $mapper->map($data);
     $this->assertEquals($expected, $captureRequest->TID);
 
   }
