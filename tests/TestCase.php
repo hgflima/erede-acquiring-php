@@ -16,6 +16,10 @@ class TestCase extends \PHPUnit_Framework_TestCase {
     return array("credit_card" => "4242424242424242", "exp_month" => 11, "exp_year" => 2015, "cvv" => "021", "amount" => "1021", "reference" => "1234", "soft_descriptor" => "mystore", "installments" => 10, "capture" => false);
   }
 
+  protected function getValidCaptureRequestData() {
+    return array("amount" => "1021", "installments" => 10, "tid" => "123456");
+  }
+
   protected function getAuthorizeValidatorMock($success) {
 
     $authorizeValidatorMock = $this->getMockBuilder("stdClass")
