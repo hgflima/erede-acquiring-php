@@ -9,6 +9,7 @@ require(dirname(__FILE__) .'/lib/TransactionCredit.php');
 require(dirname(__FILE__) .'/lib/error/WrongTransactionTypeException.php');
 
 # ERede\Acquiring\Validator
+require(dirname(__FILE__) .'/lib/validator/TransactionCreditValidator.php');
 require(dirname(__FILE__) .'/lib/validator/TransactionCreditAuthorizeValidator.php');
 require(dirname(__FILE__) .'/lib/validator/TransactionCreditCaptureValidator.php');
 
