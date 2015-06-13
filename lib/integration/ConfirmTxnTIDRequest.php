@@ -1,4 +1,7 @@
 <?php
+
+namespace ERede\Acquiring\Integration;
+
 class ConfirmTxnTIDRequest {
 
   public $Filiacao = null;
