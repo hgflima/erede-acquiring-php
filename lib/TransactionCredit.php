@@ -2,10 +2,6 @@
 
 namespace ERede\Acquiring;
 
-#use \ERede\Acquiring\Mapper\AuthorizeRequestMapper as AuthorizeRequestMapper;
-#use \ERede\Acquiring\Mapper\CaptureRequestMapper as CaptureRequestMapper;
-#use \ERede\Acquiring\Validator\TransactionCreditAuthorizeValidator as AuthorizeValidator;
-#use \ERede\Acquiring\Validator\TransactionCreditCaptureValidator as CaptureValidator;
 use \ERede\Acquiring\TransactionStatus as s;
 use ERede\Acquiring\Integration\KomerciWcf as Komerci;
 use ERede\Acquiring\Integration\GetAuthorizedCredit;
@@ -70,14 +66,9 @@ class TransactionCredit {
     }
 
     $captureRequest   = $this->captureRequestMapper->map($parameters);
-    $captureRequest->Parcelas = "01";
-    $captureRequest->Data = "20150614";
-    $captureRequest->NumAutor = "041665";
-
     var_dump($captureRequest);
 
     $captureResponse  = $this->integrator->ConfirmTxnTID(new ConfirmTxnTID($captureRequest));
-
     var_dump($captureResponse);
 
     $response->data   = $this->captureResponseMapper->map($captureResponse);

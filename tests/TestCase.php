@@ -5,6 +5,8 @@ namespace ERede\Acquiring;
 use \ERede\Acquiring\TransactionStatus as s;
 use \ERede\Acquiring\Integration\GetAuthorizedRequest;
 use \ERede\Acquiring\Integration\GetAuthorizedCreditResponse;
+use \ERede\Acquiring\Integration\ConfirmTxnTID;
+use \ERede\Acquiring\Integration\ConfirmTxnTIDResponse;
 
 class TestCase extends \PHPUnit_Framework_TestCase {
 
@@ -88,6 +90,25 @@ class TestCase extends \PHPUnit_Framework_TestCase {
 
   }
 
+  protected function getIntegratorConfirmTxnTIDMock($success) {
+
+    $mock = $this->getMockBuilder("stdClass")
+                  ->setMethods(array('ConfirmTxnTID'))
+                  ->getMock();
+
+    $response = $this->getConfirmTxnTIDResponseError();
+
+    if($success)
+      $response = $this->getConfirmTxnTIDResponseSuccess();
+
+    $mock->expects($this->once())
+                        ->method("ConfirmTxnTID")
+                        ->willReturn(new ConfirmTxnTIDResponse($response));
+
+    return $mock;
+
+  }
+
   protected function getGetAuthorizedCreditResponseSuccess() {
 
     $result = new \stdClass;
@@ -115,12 +136,26 @@ class TestCase extends \PHPUnit_Framework_TestCase {
     $result = new \stdClass;
     $result->CodRet   = "00";
     $result->Data     = "20150602";
-    $result->Hora     = "09:34:21";
     $result->Msgret   = "Sucesso";
     $result->NumAutor = "022579";
     $result->NumPedido = "123456";
     $result->NumSqn     = "25747";
     $result->Tid        = "134";
+
+    return $result;
+
+  }
+
+  protected function getConfirmTxnTIDResponseError() {
+
+    $result = new \stdClass;
+    $result->CodRet   = NULL;
+    $result->Data     = NULL;
+    $result->Msgret   = "Dado Inválido. PARAMETRO OBRIGATORIO AUSENTE.";
+    $result->NumAutor = NULL;
+    $result->NumPedido = NULL;
+    $result->NumSqn     = NULL;
+    $result->Tid        = NULL;
 
     return $result;
 
