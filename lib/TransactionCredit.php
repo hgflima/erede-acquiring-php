@@ -21,13 +21,13 @@ class TransactionCredit {
 
   }
 
-  public function authorize(array $parameters) {
+  private function doAction(array $parameters, $validator, $requestMapper, $responseMapper, $methodToCall, $parameterClass) {
 
     $response = new \stdClass;
     $response->status = s::SUCCESS;
     $response->errors = array();
 
-    $validationResponse = $this->authorizeValidator->validate($parameters);
+    $validationResponse = $validator->validate($parameters);
 
     if($validationResponse->status == s::VALIDATION_ERROR) {
       $response->status = $validationResponse->status;
@@ -35,9 +35,9 @@ class TransactionCredit {
       return $response;
     }
 
-    $authorizeRequest = $this->authorizeRequestMapper->map($parameters);
-    $authorizeResponse = $this->integrator->GetAuthorizedCredit(new GetAuthorizedCredit($authorizeRequest));
-    $response->data    = $this->authorizeResponseMapper->map($authorizeResponse);
+    $actionRequest      = $requestMapper->map($parameters);
+    $actionResponse     = $this->integrator->$methodToCall(new $parameterClass($actionRequest));
+    $response->data     = $responseMapper->map($actionResponse);
 
     if($response->data['return_code'] == null)
       $response->status = s::TRANSACTION_NOT_PROCESSED;
@@ -46,29 +46,22 @@ class TransactionCredit {
 
   }
 
+  public function authorize(array $parameters) {
+    return $this->doAction($parameters,
+                      $this->authorizeValidator,
+                      $this->authorizeRequestMapper,
+                      $this->authorizeResponseMapper,
+                      "GetAuthorizedCredit",
+                      "\ERede\Acquiring\Integration\GetAuthorizedCredit");
+  }
+
   public function capture(array $parameters) {
-
-    $response = new \stdClass;
-    $response->status = s::SUCCESS;
-    $response->errors = array();
-
-    $validationResponse = $this->captureValidator->validate($parameters);
-
-    if($validationResponse->status == s::VALIDATION_ERROR) {
-      $response->status = $validationResponse->status;
-      $response->errors = $validationResponse->errors;
-      return $response;
-    }
-
-    $captureRequest   = $this->captureRequestMapper->map($parameters);
-    $captureResponse  = $this->integrator->ConfirmTxnTID(new ConfirmTxnTID($captureRequest));
-    $response->data   = $this->captureResponseMapper->map($captureResponse);
-
-    if($response->data['return_code'] == null)
-      $response->status = s::TRANSACTION_NOT_PROCESSED;
-
-    return $response;
-
+    return $this->doAction($parameters,
+                      $this->captureValidator,
+                      $this->captureRequestMapper,
+                      $this->captureResponseMapper,
+                      "ConfirmTxnTID",
+                      "\ERede\Acquiring\Integration\ConfirmTxnTID");
   }
 
 }
