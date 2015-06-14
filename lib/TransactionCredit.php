@@ -36,13 +36,8 @@ class TransactionCredit {
     }
 
     $authorizeRequest = $this->authorizeRequestMapper->map($parameters);
-
-    var_dump($authorizeRequest);
-
     $authorizeResponse = $this->integrator->GetAuthorizedCredit(new GetAuthorizedCredit($authorizeRequest));
     $response->data    = $this->authorizeResponseMapper->map($authorizeResponse);
-
-    var_dump($authorizeResponse);
 
     if($response->data['return_code'] == null)
       $response->status = s::TRANSACTION_NOT_PROCESSED;
@@ -66,11 +61,7 @@ class TransactionCredit {
     }
 
     $captureRequest   = $this->captureRequestMapper->map($parameters);
-    var_dump($captureRequest);
-
     $captureResponse  = $this->integrator->ConfirmTxnTID(new ConfirmTxnTID($captureRequest));
-    var_dump($captureResponse);
-
     $response->data   = $this->captureResponseMapper->map($captureResponse);
 
     if($response->data['return_code'] == null)
