@@ -5,6 +5,10 @@ namespace ERede\Acquiring;
 use ERede\Acquiring\Mapper\AuthorizeRequestMapper;
 use ERede\Acquiring\Mapper\AuthorizeResponseMapper;
 use ERede\Acquiring\Validator\TransactionCreditAuthorizeValidator;
+use ERede\Acquiring\Mapper\CaptureRequestMapper;
+use ERede\Acquiring\Mapper\CaptureResponseMapper;
+use ERede\Acquiring\Validator\TransactionCreditCaptureValidator;
+
 use ERede\Acquiring\Integration\KomerciWcf as Komerci;
 
 class Acquirer {
@@ -28,6 +32,9 @@ class Acquirer {
                         "authorizeValidator"      => new TransactionCreditAuthorizeValidator(),
                         "authorizeRequestMapper"  => new AuthorizeRequestMapper($filiation, $password),
                         "authorizeResponseMapper" => new AuthorizeResponseMapper(),
+                        "captureValidator"        => new TransactionCreditCaptureValidator(),
+                        "captureRequestMapper"    => new CaptureRequestMapper($filiation, $password),
+                        "captureResponseMapper"   => new CaptureResponseMapper(),
                         "integrator"              => new Komerci(array(), $env));
 
     $this->transactionTypeList = array(TransactionType::CREDIT => new TransactionCredit($parameters));

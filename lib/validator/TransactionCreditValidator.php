@@ -47,7 +47,7 @@ class TransactionCreditValidator {
 
   protected function assertIntBetween($fieldName, $start, $end, $parameter) {
 
-    if(!v::int()->between($start, $end)->validate($parameter)) {
+    if(!v::int()->between($start, $end, true)->validate($parameter)) {
       $this->setValidationResponse(s::VALIDATION_ERROR, $fieldName, "is invalid");
       return false;
     }

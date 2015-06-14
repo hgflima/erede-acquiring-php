@@ -17,7 +17,7 @@ class TestCase extends \PHPUnit_Framework_TestCase {
   }
 
   protected function getValidCaptureRequestData() {
-    return array("amount" => "1021", "installments" => 10, "tid" => "123456");
+    return array("amount" => "1021", "installments" => 10, "tid" => "123456", "authorization_number" => "001122", "date" => "20150614");
   }
 
   protected function getAuthorizeValidatorMock($success) {

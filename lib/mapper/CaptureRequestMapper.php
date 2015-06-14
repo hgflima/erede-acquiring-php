@@ -13,8 +13,10 @@ class CaptureRequestMapper {
     $this->filiation  = $filiation;
     $this->password   = $password;
 
-    $this->fieldList = array("tid"            => "TID",
-                              "installments"  => "Parcelas");
+    $this->fieldList = array("tid"                    => "TID",
+                              "installments"          => "Parcelas",
+                              "date"                  => "Data",
+                              "authorization_number"  => "NumAutor");
 
   }
 
