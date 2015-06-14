@@ -110,6 +110,22 @@ class TestCase extends \PHPUnit_Framework_TestCase {
 
   }
 
+  protected function getConfirmTxnTIDResponseSuccess() {
+
+    $result = new \stdClass;
+    $result->CodRet   = "00";
+    $result->Data     = "20150602";
+    $result->Hora     = "09:34:21";
+    $result->Msgret   = "Sucesso";
+    $result->NumAutor = "022579";
+    $result->NumPedido = "123456";
+    $result->NumSqn     = "25747";
+    $result->Tid        = "134";
+
+    return $result;
+
+  }
+
   protected function getGetAuthorizedCreditResponseNotApproved() {
 
     $result = new \stdClass;
