@@ -12,12 +12,15 @@ require(dirname(__FILE__) .'/lib/error/WrongTransactionTypeException.php');
 require(dirname(__FILE__) .'/lib/validator/TransactionCreditValidator.php');
 require(dirname(__FILE__) .'/lib/validator/TransactionCreditAuthorizeValidator.php');
 require(dirname(__FILE__) .'/lib/validator/TransactionCreditCaptureValidator.php');
+require(dirname(__FILE__) .'/lib/validator/TransactionCreditFindValidator.php');
 
 # ERede\Acquiring\Mapper
 require(dirname(__FILE__) .'/lib/mapper/AuthorizeRequestMapper.php');
 require(dirname(__FILE__) .'/lib/mapper/AuthorizeResponseMapper.php');
 require(dirname(__FILE__) .'/lib/mapper/CaptureRequestMapper.php');
 require(dirname(__FILE__) .'/lib/mapper/CaptureResponseMapper.php');
+require(dirname(__FILE__) .'/lib/mapper/FindRequestMapper.php');
+require(dirname(__FILE__) .'/lib/mapper/FindResponseMapper.php');
 
 # ERede/Acquiring/Integration
 require(dirname(__FILE__) .'/lib/integration/KomerciWcf.php');
