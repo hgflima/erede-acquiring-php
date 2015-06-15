@@ -7,6 +7,10 @@ use \ERede\Acquiring\Mapper\AuthorizeResponseMapper;
 use \ERede\Acquiring\Mapper\CaptureRequestMapper;
 use \ERede\Acquiring\Mapper\CaptureResponseMapper;
 use \ERede\Acquiring\Validator\TransactionCreditCaptureValidator as CaptureValidator;
+use \ERede\Acquiring\Mapper\FindRequestMapper;
+use \ERede\Acquiring\Mapper\FIndResponseMapper;
+use \ERede\Acquiring\Validator\TransactionCreditFindValidator as FindValidator;
+
 
 class TransactionCreditTest extends TestCase {
 
@@ -140,6 +144,55 @@ class TransactionCreditTest extends TestCase {
 
     $transactionCredit = new TransactionCredit($parameters);
     $response          = $transactionCredit->capture($this->getValidCaptureRequestData());
+
+    $expected_status      = s::SUCCESS;
+    $expected_errors      = 0;
+    $expected_return_code = "00";
+
+    $this->assertEquals($expected_status, $response->status);
+    $this->assertEquals($expected_errors, count($response->errors));
+    $this->assertEquals($expected_return_code, $response->data['return_code']);
+
+  }
+
+  public function testFindValidationError() {
+
+    $field      = "tid";
+    $validator  = new FindValidator();
+
+    $parameters = array("filiation"         => "123",
+                        "password"          => "456",
+                        "findValidator"  => $validator);
+
+    $transactionCredit  = new TransactionCredit($parameters);
+
+    $data               = array();
+
+    $response           = $transactionCredit->find($data);
+
+    $expected_status    = s::VALIDATION_ERROR;
+    $expected_errors    = 2;
+    $expected_message   = "is required";
+
+    $this->assertEquals($expected_status, $response->status);
+    $this->assertEquals($expected_errors, count($response->errors));
+    $this->assertEquals($expected_message, $response->errors[$field]);
+
+  }
+
+  public function testFindSuccess() {
+
+    $integratorMock             = $this->getIntegratorQueryMock(true);
+
+    $parameters = array("filiation"               => "123",
+                        "password"                => "456",
+                        "findValidator"        => new FindValidator(),
+                        "findRequestMapper"    => new FindRequestMapper("123", "456") ,
+                        "findResponseMapper"   => new FindResponseMapper(),
+                        "integrator"              => $integratorMock);
+
+    $transactionCredit = new TransactionCredit($parameters);
+    $response          = $transactionCredit->find(array("tid" => "123"));
 
     $expected_status      = s::SUCCESS;
     $expected_errors      = 0;

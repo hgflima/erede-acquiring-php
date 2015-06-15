@@ -12,6 +12,7 @@ class TransactionCredit {
   private $filiation, $password, $integrator;
   private $authorizeValidator, $authorizeRequestMapper, $authorizeResponseMapper;
   private $captureValidator, $captureRequestMapper, $captureResponseMapper;
+  private $findValidator, $findRequestMapper, $findResponseMapper;
 
   public function __construct(array $parameters) {
 
@@ -37,6 +38,7 @@ class TransactionCredit {
 
     $actionRequest      = $requestMapper->map($parameters);
     $actionResponse     = $this->integrator->$methodToCall(new $parameterClass($actionRequest));
+
     $response->data     = $responseMapper->map($actionResponse);
 
     if($response->data['return_code'] == null)
@@ -62,6 +64,15 @@ class TransactionCredit {
                       $this->captureResponseMapper,
                       "ConfirmTxnTID",
                       "\ERede\Acquiring\Integration\ConfirmTxnTID");
+  }
+
+  public function find(array $parameters) {
+    return $this->doAction($parameters,
+                      $this->findValidator,
+                      $this->findRequestMapper,
+                      $this->findResponseMapper,
+                      "Query",
+                      "\ERede\Acquiring\Integration\Query");
   }
 
 }

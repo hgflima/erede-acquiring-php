@@ -7,6 +7,7 @@ use \ERede\Acquiring\Integration\GetAuthorizedRequest;
 use \ERede\Acquiring\Integration\GetAuthorizedCreditResponse;
 use \ERede\Acquiring\Integration\ConfirmTxnTID;
 use \ERede\Acquiring\Integration\ConfirmTxnTIDResponse;
+use \ERede\Acquiring\Integration\QueryResponse;
 
 class TestCase extends \PHPUnit_Framework_TestCase {
 
@@ -106,6 +107,89 @@ class TestCase extends \PHPUnit_Framework_TestCase {
                         ->willReturn(new ConfirmTxnTIDResponse($response));
 
     return $mock;
+
+  }
+
+  protected function getIntegratorQueryMock($success) {
+
+    $mock = $this->getMockBuilder("stdClass")
+                  ->setMethods(array('Query'))
+                  ->getMock();
+
+    $response = $this->getQueryResponseError();
+
+    if($success)
+      $response = $this->getQueryResponseSuccess();
+
+    $mock->expects($this->once())
+                        ->method("Query")
+                        ->willReturn(new QueryResponse($response));
+
+    return $mock;
+
+  }
+
+  protected function getQueryResponseSuccess() {
+
+    $result = new \stdClass;
+
+    $result->REGISTRO = new \stdClass;
+    $result->REGISTRO->COD_RET              = "00";
+    $result->REGISTRO->DATA                 = "20150614";
+    $result->REGISTRO->DATA_CANC            = "";
+    $result->REGISTRO->DATA_CON_PRE_AUT     = "20150614";
+    $result->REGISTRO->DATA_EXP_PRE_AUT     = "20150714";
+    $result->REGISTRO->FILIACAO_DSTR        = "0";
+    $result->REGISTRO->HORA                 = "13:39:41";
+    $result->REGISTRO->IDENTIFICACAOFATURA  = "LOJADRI-mystore";
+    $result->REGISTRO->MOEDA                = "Real";
+    $result->REGISTRO->MSG_RET              = "Sucesso";
+    $result->REGISTRO->NOM_PORTADOR         = "";
+    $result->REGISTRO->NR_CARTAO            = "544570XXXXXX9838";
+    $result->REGISTRO->NUMAUTOR             = "035985";
+    $result->REGISTRO->NUMPEDIDO            = "capture4";
+    $result->REGISTRO->NUMSQN               = "249939093";
+    $result->REGISTRO->ORIGEM               = "0";
+    $result->REGISTRO->PARCELAS             = "00";
+    $result->REGISTRO->STATUS               = "1";
+    $result->REGISTRO->TAXA_EMBARQUE        = "0.00";
+    $result->REGISTRO->TID                  = "206";
+    $result->REGISTRO->TOTAL                = "1.11";
+    $result->REGISTRO->TRANSACAO            = "69";
+
+    return $result;
+
+  }
+
+  protected function getQueryResponseError() {
+
+    $result = new \stdClass;
+
+    $result->REGISTRO = new \stdClass;
+    $result->REGISTRO->COD_RET              = "99";
+    $result->REGISTRO->DATA                 = "";
+    $result->REGISTRO->DATA_CANC            = "";
+    $result->REGISTRO->DATA_CON_PRE_AUT     = "";
+    $result->REGISTRO->DATA_EXP_PRE_AUT     = "";
+    $result->REGISTRO->FILIACAO_DSTR        = "";
+    $result->REGISTRO->HORA                 = "";
+    $result->REGISTRO->IDENTIFICACAOFATURA  = "";
+    $result->REGISTRO->MOEDA                = "";
+    $result->REGISTRO->MSG_RET              = "Transação não encontrada";
+    $result->REGISTRO->NOM_PORTADOR         = "";
+    $result->REGISTRO->NR_CARTAO            = "";
+    $result->REGISTRO->NUMAUTOR             = "";
+    $result->REGISTRO->NUMPEDIDO            = "";
+    $result->REGISTRO->NUMSQN               = "";
+    $result->REGISTRO->ORIGEM               = "";
+    $result->REGISTRO->PARCELAS             = "";
+    $result->REGISTRO->STATUS               = "";
+    $result->REGISTRO->TAXA_EMBARQUE        = "";
+    $result->REGISTRO->TID                  = "";
+    $result->REGISTRO->TOTAL                = "";
+    $result->REGISTRO->TRANSACAO            = "";
+
+    return $result;
 
   }
 
