@@ -22,7 +22,7 @@ class Acquirer {
   function __construct($filiation, $password, $environment = 'production') {
 
     $environments = array("production"  => "https://ecommerce.userede.com.br/Redecard.Adquirencia.Wcf/KomerciWcf.svc?wsdl",
-                          "homolog"     => "https://ecommerce.userede.com.br/Redecard.Adquirencia.Wcf/KomerciWcf.svc?wsdl");
+                          "homolog"     => "https://scommerce.userede.com.br/Redecard.Komerci.External.WcfKomerci/KomerciWcf.svc?wsdl");
 
     $env = $environments['production'];
 

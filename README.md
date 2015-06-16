@@ -16,7 +16,7 @@ You can install the bindings via [Composer](http://getcomposer.org/). Add this t
 
     {
       "require": {
-        "erede/acquiring": "0.1"
+        "rede/acquiring": "1.0.1"
       }
     }
 
@@ -25,30 +25,53 @@ Then install via:
     composer.phar install
 
 To use the bindings, use Composer's [autoload](https://getcomposer.org/doc/00-intro.md#autoloading):
-
-    require_once('vendor/autoload.php');
-    
+```php
+require_once('vendor/autoload.php');
+```
 ## Manual Installation
 
 If you do not wish to use Composer, you can download the [latest release](https://github.com/hgflima/rede-acquiring/releases). Then, to use the bindings, include the `init.php` file.
-
+```php
     require_once('/path/to/erede-acquiring/init.php');
+```
 
 ## Getting Started
 
-Simple usage looks like:
+In order to increase the readability we suggest to declare the code below on the top of your file
+```php
+use \ERede\Acquiring\Acquirer;
+use \ERede\Acquiring\TransactionType;
+```
 
-    use \ERede\Acquiring\Acquirer;
-    use \ERede\Acquiring\TransactionType;
+## 20 seconds tutorial
 
-    $data = array('credit_card' => '4242424242424242', 'exp_month' => 5, 'exp_year' => 2015, 'amount' => '1050', 'capture' => true);
-    $acquirer = new Acquirer("FILIATION", "PASSWORD");
-    $response = $acquirer.fetch(TransactionType::CREDIT).authorize($data);
-    var_dump($response);
+The simplest way to do a payment using the E-Rede Acquiring Web Service is using this code
+```php
+$data = array('credit_card' => '4242424242424242', 'exp_month' => 5, 'exp_year' => 2015, 'amount' => '1050', 'capture' => true);
+$acquirer = new Acquirer("FILIATION", "PASSWORD");
+$response = $acquirer.fetch(TransactionType::CREDIT).authorize($data);
+print_r($response);
+```
 
-## Documentation
+## Next steps
 
-Please see https://www.userede.com.br/Desenvolvedores for up-to-date documentation.
+For more details about how to use this library use this links
+
+* Creating an authorization (without automatic capture)
+https://github.com/hgflima/rede-acquiring/blob/master/docs/authorization.md
+
+* Capturing the authorization
+https://github.com/hgflima/rede-acquiring/blob/master/docs/capture.md
+
+* Find a transaction
+https://github.com/hgflima/rede-acquiring/blob/master/docs/find.md
+
+* Cancelling a transaction
+https://github.com/hgflima/rede-acquiring/blob/master/docs/cancel.md
+
+## E-Rede Acquiring Web Service Documentation
+
+Please see https://www.userede.com.br/desenvolvedores for up-to-date documentation
 
 ## Tests
 
