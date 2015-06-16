@@ -17,7 +17,8 @@ class Acquirer {
 
   function __construct($filiation, $password, $environment = 'production') {
 
-    $environments = array("production" => "https://ecommerce.userede.com.br/Redecard.Adquirencia.Wcf/KomerciWcf.svc?wsdl");
+    $environments = array("production"  => "https://ecommerce.userede.com.br/Redecard.Adquirencia.Wcf/KomerciWcf.svc?wsdl",
+                          "homolog"     => "https://ecommerce.userede.com.br/Redecard.Adquirencia.Wcf/KomerciWcf.svc?wsdl");
 
     $env = $environments['production'];
 
@@ -35,6 +36,9 @@ class Acquirer {
                         "captureValidator"        => new TransactionCreditCaptureValidator(),
                         "captureRequestMapper"    => new CaptureRequestMapper($filiation, $password),
                         "captureResponseMapper"   => new CaptureResponseMapper(),
+                        "findValidator"           => new TransactionCreditFindValidator(),
+                        "findRequestMapper"       => new FindRequestMapper($filiation, $password),
+                        "findResponseMapper"      => new FindResponseMapper(),
                         "integrator"              => new Komerci(array(), $env));
 
     $this->transactionTypeList = array(TransactionType::CREDIT => new TransactionCredit($parameters));
