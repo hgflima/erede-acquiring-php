@@ -32,7 +32,7 @@ require_once('vendor/autoload.php');
 
 If you do not wish to use Composer, you can download the [latest release](https://github.com/hgflima/rede-acquiring/releases). Then, to use the bindings, include the `init.php` file.
 ```php
-    require_once('/path/to/erede-acquiring/init.php');
+require_once('/path/to/erede-acquiring/init.php');
 ```
 
 ## Getting Started
@@ -57,16 +57,16 @@ print_r($response);
 
 For more details about how to use this library use this links
 
-* Creating an authorization (without automatic capture)
+**Creating an authorization (without automatic capture)**
 https://github.com/hgflima/rede-acquiring/blob/master/docs/authorization.md
 
-* Capturing the authorization
+**Capturing the authorization**
 https://github.com/hgflima/rede-acquiring/blob/master/docs/capture.md
 
-* Find a transaction
+**Find a transaction**
 https://github.com/hgflima/rede-acquiring/blob/master/docs/find.md
 
-* Cancelling a transaction
+**Cancelling a transaction**
 https://github.com/hgflima/rede-acquiring/blob/master/docs/cancel.md
 
 ## E-Rede Acquiring Web Service Documentation
