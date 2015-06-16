@@ -1,6 +1,6 @@
 # E-Rede Acquiring PHP Library
 
-A PHP client to use the E-Rede Acquiring service.
+A PHP client to use the E-Rede Acquiring Web Service.
 
 [![Code Climate](https://codeclimate.com/repos/554cfcaa69568023f60072f4/badges/35a3e4f5871401705f63/gpa.svg)](https://codeclimate.com/repos/554cfcaa69568023f60072f4/feed)
 [![Test Coverage](https://codeclimate.com/repos/554cfcaa69568023f60072f4/badges/35a3e4f5871401705f63/coverage.svg)](https://codeclimate.com/repos/554cfcaa69568023f60072f4/coverage)
@@ -13,12 +13,13 @@ PHP 5.3.3 and later.
 ## Composer
 
 You can install the bindings via [Composer](http://getcomposer.org/). Add this to your `composer.json`:
-
-    {
-      "require": {
-        "rede/acquiring": "1.0.1"
-      }
-    }
+```javascript
+{
+  "require": {
+    "rede/acquiring": "1.0.1"
+  }
+}
+```
 
 Then install via:
 
