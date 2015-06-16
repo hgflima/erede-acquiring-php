@@ -55,18 +55,18 @@ print_r($response);
 
 ## Next steps
 
-For more details about how to use this library use this links
+Find more details about how to use this library
 
-**Creating an authorization (without automatic capture)**
+**Creating an authorization (without automatic capture)**.
 https://github.com/hgflima/rede-acquiring/blob/master/docs/authorization.md
 
-**Capturing the authorization**
+**Capturing the authorization**.
 https://github.com/hgflima/rede-acquiring/blob/master/docs/capture.md
 
-**Find a transaction**
+**Find a transaction**.
 https://github.com/hgflima/rede-acquiring/blob/master/docs/find.md
 
-**Cancelling a transaction**
+**Cancelling a transaction**.
 https://github.com/hgflima/rede-acquiring/blob/master/docs/cancel.md
 
 ## E-Rede Acquiring Web Service Documentation
