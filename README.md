@@ -50,7 +50,7 @@ The simplest way to do a payment using the E-Rede Acquiring Web Service is using
 ```php
 $data = array('credit_card' => '4242424242424242', 'exp_month' => 5, 'exp_year' => 2015, 'amount' => '1050', 'capture' => true);
 $acquirer = new Acquirer("FILIATION", "PASSWORD");
-$response = $acquirer.fetch(TransactionType::CREDIT).authorize($data);
+$response = $acquirer->fetch(TransactionType::CREDIT)->authorize($data);
 print_r($response);
 ```
 
