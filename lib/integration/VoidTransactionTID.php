@@ -6,4 +6,8 @@ class VoidTransactionTID {
 
   public $request = null;
 
+  public function __construct($data) {
+    $this->request = $data;
+  }
+
 }

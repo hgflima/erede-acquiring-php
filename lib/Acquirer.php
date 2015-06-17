@@ -11,6 +11,9 @@ use ERede\Acquiring\Validator\TransactionCreditCaptureValidator;
 use ERede\Acquiring\Mapper\FindRequestMapper;
 use ERede\Acquiring\Mapper\FindResponseMapper;
 use ERede\Acquiring\Validator\TransactionCreditFindValidator;
+use ERede\Acquiring\Mapper\CancelRequestMapper;
+use ERede\Acquiring\Mapper\CancelResponseMapper;
+use ERede\Acquiring\Validator\TransactionCreditCancelValidator;
 
 
 use ERede\Acquiring\Integration\KomerciWcf as Komerci;
@@ -43,6 +46,9 @@ class Acquirer {
                         "findValidator"           => new TransactionCreditFindValidator(),
                         "findRequestMapper"       => new FindRequestMapper($filiation, $password),
                         "findResponseMapper"      => new FindResponseMapper(),
+                        "cancelValidator"         => new TransactionCreditCancelValidator(),
+                        "cancelRequestMapper"     => new CancelRequestMapper($filiation, $password),
+                        "cancelResponseMapper"    => new CancelResponseMapper(),
                         "integrator"              => new Komerci(array(), $env));
 
     $this->transactionTypeList = array(TransactionType::CREDIT => new TransactionCredit($parameters));

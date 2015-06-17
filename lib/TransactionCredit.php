@@ -6,6 +6,8 @@ use \ERede\Acquiring\TransactionStatus as s;
 use ERede\Acquiring\Integration\KomerciWcf as Komerci;
 use ERede\Acquiring\Integration\GetAuthorizedCredit;
 use ERede\Acquiring\Integration\ConfirmTxnTID;
+use ERede\Acquiring\Integration\Query;
+use ERede\Acquiring\Integration\VoidTransactionTID;
 
 class TransactionCredit {
 
@@ -13,6 +15,7 @@ class TransactionCredit {
   private $authorizeValidator, $authorizeRequestMapper, $authorizeResponseMapper;
   private $captureValidator, $captureRequestMapper, $captureResponseMapper;
   private $findValidator, $findRequestMapper, $findResponseMapper;
+  private $cancelValidator, $cancelRequestMapper, $cancelResponseMapper;
 
   public function __construct(array $parameters) {
 
@@ -38,7 +41,6 @@ class TransactionCredit {
 
     $actionRequest      = $requestMapper->map($parameters);
     $actionResponse     = $this->integrator->$methodToCall(new $parameterClass($actionRequest));
-
     $response->data     = $responseMapper->map($actionResponse);
 
     if($response->data['return_code'] == null)
@@ -73,6 +75,15 @@ class TransactionCredit {
                       $this->findResponseMapper,
                       "Query",
                       "\ERede\Acquiring\Integration\Query");
+  }
+
+  public function cancel(array $parameters) {
+    return $this->doAction($parameters,
+                      $this->cancelValidator,
+                      $this->cancelRequestMapper,
+                      $this->cancelResponseMapper,
+                      "VoidTransactionTID",
+                      "\ERede\Acquiring\Integration\VoidTransactionTID");
   }
 
 }

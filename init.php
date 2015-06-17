@@ -13,6 +13,7 @@ require(dirname(__FILE__) .'/lib/validator/TransactionCreditValidator.php');
 require(dirname(__FILE__) .'/lib/validator/TransactionCreditAuthorizeValidator.php');
 require(dirname(__FILE__) .'/lib/validator/TransactionCreditCaptureValidator.php');
 require(dirname(__FILE__) .'/lib/validator/TransactionCreditFindValidator.php');
+require(dirname(__FILE__) .'/lib/validator/TransactionCreditCancelValidator.php');
 
 # ERede\Acquiring\Mapper
 require(dirname(__FILE__) .'/lib/mapper/AuthorizeRequestMapper.php');
@@ -21,6 +22,8 @@ require(dirname(__FILE__) .'/lib/mapper/CaptureRequestMapper.php');
 require(dirname(__FILE__) .'/lib/mapper/CaptureResponseMapper.php');
 require(dirname(__FILE__) .'/lib/mapper/FindRequestMapper.php');
 require(dirname(__FILE__) .'/lib/mapper/FindResponseMapper.php');
+require(dirname(__FILE__) .'/lib/mapper/CancelRequestMapper.php');
+require(dirname(__FILE__) .'/lib/mapper/CancelResponseMapper.php');
 
 # ERede/Acquiring/Integration
 require(dirname(__FILE__) .'/lib/integration/KomerciWcf.php');

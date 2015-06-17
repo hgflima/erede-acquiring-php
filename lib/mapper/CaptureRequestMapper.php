@@ -13,10 +13,8 @@ class CaptureRequestMapper {
     $this->filiation  = $filiation;
     $this->password   = $password;
 
-    $this->fieldList = array("tid"                    => "TID",
-                              "installments"          => "Parcelas",
-                              "date"                  => "Data",
-                              "authorization_number"  => "NumAutor");
+    $this->fieldList = array("tid"                    => "Tid",
+                              "installments"          => "Parcelas");
 
   }
 
@@ -28,7 +26,9 @@ class CaptureRequestMapper {
       if(isset($data[$key]))
         $captureRequest->$value = $data[$key];
 
-    $captureRequest->Total    = ((float)$data['amount']) / 100;
+    if(isset($data['amount']))
+      $captureRequest->Total    = ((float)$data['amount']) / 100;
+
     $captureRequest->Filiacao = $this->filiation;
     $captureRequest->Senha    = $this->password;
 

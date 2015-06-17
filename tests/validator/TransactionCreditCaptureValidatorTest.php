@@ -32,70 +32,6 @@ class TransactionCreditCaptureValidatorTest extends \ERede\Acquiring\TestCase {
 
   }
 
-  public function testValidateAuthorizationNumberRequired() {
-
-    $field = "authorization_number";
-
-    $validator            = new TransactionCreditCaptureValidator();
-    $data                 = $this->getValidCaptureRequestData();
-
-    unset($data[$field]);
-
-    $validationResponse   = $validator->validate($data);
-
-    $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
-    $this->assertEquals("is required", $validationResponse->errors[$field]);
-
-  }
-
-  public function testValidateDateRequired() {
-
-    $field = "date";
-
-    $validator            = new TransactionCreditCaptureValidator();
-    $data                 = $this->getValidCaptureRequestData();
-
-    unset($data[$field]);
-
-    $validationResponse   = $validator->validate($data);
-
-    $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
-    $this->assertEquals("is required", $validationResponse->errors[$field]);
-
-  }
-
-  public function testInvalidDate() {
-
-    $field = "date";
-
-    $validator            = new TransactionCreditCaptureValidator();
-    $data                 = $this->getValidCaptureRequestData();
-
-    $data[$field] = "abc124";
-
-    $validationResponse   = $validator->validate($data);
-
-    $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
-    $this->assertEquals("is invalid", $validationResponse->errors[$field]);
-
-  }
-
-  public function testInvalidDateFormat() {
-
-    $field = "date";
-
-    $validator            = new TransactionCreditCaptureValidator();
-    $data                 = $this->getValidCaptureRequestData();
-
-    $data[$field] = "01012001";
-
-    $validationResponse   = $validator->validate($data);
-
-    $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
-    $this->assertEquals("is invalid", $validationResponse->errors[$field]);
-
-  }
-
   public function testValidateAmountRequired() {
 
     $validator            = new TransactionCreditCaptureValidator();
@@ -105,7 +41,6 @@ class TransactionCreditCaptureValidatorTest extends \ERede\Acquiring\TestCase {
     $validationResponse   = $validator->validate($data);
 
     $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
-    $this->assertEquals("is required", $validationResponse->errors["amount"]);
 
   }
 

@@ -2,6 +2,9 @@
 
 namespace ERede\Acquiring;
 
+use \ERede\Acquiring\Acquirer;
+use \ERede\Acquiring\TransactionType;
+
 class AcquirerTest extends TestCase {
 
   public function testFetchTransactionCredit() {

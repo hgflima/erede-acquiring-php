@@ -20,7 +20,7 @@ class TestCase extends \PHPUnit_Framework_TestCase {
   }
 
   protected function getValidCaptureRequestData() {
-    return array("amount" => "1021", "installments" => 10, "tid" => "123456", "authorization_number" => "001122", "date" => "20150614");
+    return array("amount" => "1021", "installments" => 10, "tid" => "123456");
   }
 
   protected function getAuthorizeValidatorMock($success) {
@@ -126,6 +126,27 @@ class TestCase extends \PHPUnit_Framework_TestCase {
                         ->willReturn(new QueryResponse($response));
 
     return $mock;
+
+  }
+
+  protected function getCancelResponseSuccess() {
+
+    $result = new \stdClass;
+
+    $result->CodRet               = "00";
+    $result->MsgRet               = "Sucesso";
+    $result->Tid                  = "206";
+
+    return $result;
+
+  }
+
+  protected function getCancelResponseError() {
+
+    $result = new \stdClass;
+    $result->MsgRet               = "Ocorreu uma falha no processamento. Por favor, tente novamente.";
+
+    return $result;
 
   }
 

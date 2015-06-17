@@ -24,7 +24,7 @@ class CaptureRequestMapperTest extends \ERede\Acquiring\TestCase {
     $data             = $this->getValidCaptureRequestData();
 
     $captureRequest   = $mapper->map($data);
-    $this->assertEquals($expected, $captureRequest->TID);
+    $this->assertEquals($expected, $captureRequest->Tid);
 
   }
 
@@ -37,30 +37,6 @@ class CaptureRequestMapperTest extends \ERede\Acquiring\TestCase {
 
     $captureRequest = $mapper->map($data);
     $this->assertEquals($expected, $captureRequest->Total);
-
-  }
-
-  public function testMapDate() {
-
-    $expected         = "20150614";
-
-    $mapper           = new CaptureRequestMapper("123", "456");
-    $data             = $this->getValidCaptureRequestData();
-
-    $captureRequest = $mapper->map($data);
-    $this->assertEquals($expected, $captureRequest->Data);
-
-  }
-
-  public function testMapAuthorizationNumber() {
-
-    $expected         = "001122";
-
-    $mapper           = new CaptureRequestMapper("123", "456");
-    $data             = $this->getValidCaptureRequestData();
-
-    $captureRequest = $mapper->map($data);
-    $this->assertEquals($expected, $captureRequest->NumAutor);
 
   }
 
