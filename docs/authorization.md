@@ -15,7 +15,7 @@ To do an authorization use the code
 $transaction = $acquirer->fetch(TransactionType::CREDIT);
 
 # setup the data to send to the service
-$data = array('credit_card' => '4242424242424242', 'exp_month' => 5, 'exp_year' => 2015, 'cvv' => "123", amount' => '1050', 'capture' => true);
+$data = array('credit_card' => '4242424242424242', 'exp_month' => 5, 'exp_year' => 2015, 'cvv' => "123", 'amount' => '1050', 'capture' => true);
 
 # do the transaction
 $response = $transaction->authorize($data);
