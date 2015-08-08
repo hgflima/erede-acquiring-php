@@ -13,7 +13,7 @@ class TransactionCreditAuthorizeValidator extends TransactionCreditValidator {
 
   public function validate(array $parameters) {
 
-    if($this->validateRequired($parameters, array("credit_card", "exp_year", "exp_month", "amount"))) {
+    if($this->validateRequired($parameters, array("credit_card", "exp_year", "exp_month", "amount", "reference"))) {
 
       $this->validateCreditCard($parameters);
       $this->validateCVV($parameters);

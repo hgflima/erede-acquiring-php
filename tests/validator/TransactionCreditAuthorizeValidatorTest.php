@@ -259,4 +259,17 @@ class TransactionCreditAuthorizeValidatorTest extends \ERede\Acquiring\TestCase 
 
   }
 
+  public function testValidateReferenceRequired() {
+
+    $validator            = new TransactionCreditAuthorizeValidator();
+
+    $data                 = $this->getValidAuthorizeRequestData();
+    unset($data["reference"]);
+
+    $validationResponse   = $validator->validate($data);
+
+    $this->assertEquals(s::VALIDATION_ERROR, $validationResponse->status);
+
+  }
+
 }

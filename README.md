@@ -48,7 +48,7 @@ use \ERede\Acquiring\TransactionType;
 
 The simplest way to do a payment using the E-Rede Acquiring Web Service is using this code
 ```php
-$data = array('credit_card' => '4242424242424242', 'exp_month' => 5, 'exp_year' => 2015, 'amount' => '1050', 'capture' => true);
+$data = array('credit_card' => '4242424242424242', 'exp_month' => 5, 'exp_year' => 2015, 'amount' => '1050', 'reference' => '1234', 'capture' => true);
 $acquirer = new Acquirer("FILIATION", "PASSWORD");
 $response = $acquirer->fetch(TransactionType::CREDIT)->authorize($data);
 print_r($response);
