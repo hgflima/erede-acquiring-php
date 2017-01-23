@@ -19,7 +19,7 @@ class TransactionCreditValidator {
 
     $fieldName = "amount";
 
-    if(!v::int()->min(50, true)->validate($parameters[$fieldName])) {
+    if(!v::numeric()->min(50, true)->validate($parameters[$fieldName])) {
       $this->validationResponse->status = s::VALIDATION_ERROR;
       $this->validationResponse->errors[$fieldName] = "is invalid. Need to be higher than 50 cents";
       return false;
@@ -47,7 +47,7 @@ class TransactionCreditValidator {
 
   protected function assertIntBetween($fieldName, $start, $end, $parameter) {
 
-    if(!v::int()->between($start, $end, true)->validate($parameter)) {
+    if(!v::numeric()->between($start, $end, true)->validate($parameter)) {
       $this->setValidationResponse(s::VALIDATION_ERROR, $fieldName, "is invalid");
       return false;
     }

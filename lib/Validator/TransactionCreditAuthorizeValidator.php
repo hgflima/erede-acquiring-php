@@ -45,7 +45,7 @@ class TransactionCreditAuthorizeValidator extends TransactionCreditValidator {
 
     $fieldName = "exp_year";
 
-    if(!v::int()->validate($parameters[$fieldName])) {
+    if(!v::numeric()->validate($parameters[$fieldName])) {
       $this->validationResponse->status = s::VALIDATION_ERROR;
       $this->validationResponse->errors[$fieldName] = "is not a valid year";
       return false;
@@ -54,7 +54,7 @@ class TransactionCreditAuthorizeValidator extends TransactionCreditValidator {
     $now  = new \DateTime();
     $year = substr($parameters[$fieldName], -2);
 
-    if(!v::int()->min($now->format("y"), true)->validate($year)) {
+    if(!v::numeric()->min($now->format("y"), true)->validate($year)) {
       $this->validationResponse->status = s::VALIDATION_ERROR;
       $this->validationResponse->errors[$fieldName] = "is invalid";
       return false;
