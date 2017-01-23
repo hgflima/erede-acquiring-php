@@ -30,7 +30,7 @@ class AuthorizeRequestMapperTest extends \ERede\Acquiring\TestCase {
 
   public function testMapExpYear() {
 
-    $expected         = "2015";
+    $expected         = "2020";
 
     $mapper           = new AuthorizeRequestMapper("123", "456");
     $data             = $this->getValidAuthorizeRequestData();
